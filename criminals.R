@@ -28,7 +28,7 @@ dat = dat[,-grep("targeted", colnames(dat))]
 
 dat$victim.country = transform_row(dat, "victim.country.")
 
-tranform_row = function(dat, name)
+transform_row = function(dat, name)
 {
   subframe = dat[,grep(name, colnames(dat))]
   sub = apply(subframe, 1, function(x) return(substring(colnames(subframe)[which(x == TRUE)], nchar(name) + 1)))
