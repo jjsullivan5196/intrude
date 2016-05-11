@@ -1,3 +1,10 @@
+transform_row = function(dat, name)
+{
+  subframe = dat[,grep(name, colnames(dat))]
+  sub = apply(subframe, 1, function(x) return(substring(colnames(subframe)[which(x == TRUE)], nchar(name) + 1)))
+  return(sub)
+}
+
 dat = read.csv("vcdb.csv")
 dat = dat[,names(dat) != "X"]
 dat = dat[,-grep("action.environmental", colnames(dat))]
@@ -20,18 +27,17 @@ dat = dat[,-grep("discovery", colnames(dat))]
 dat = dat[,-grep("impact", colnames(dat))]
 dat = dat[,-grep("plus", colnames(dat))]
 dat = dat[,-grep("targeted", colnames(dat))]
-
-#vic.countries = dat[,grep("victim.country.", colnames(dat))]
-#vic.countries$country = apply(vic.countries, 1, function(x) return(substring(colnames(vic.countries)[which(x == TRUE)], 16)))
-#dat = dat[,-grep("victim.country.", colnames(dat))]
-#dat$victim.country = vic.countries$country
+dat = dat[,-grep("timeline.compromise", colnames(dat))]
+dat = dat[,-grep("timeline.exfiltration", colnames(dat))]
+dat = dat[,-grep("timeline.containment", colnames(dat))]
+dat = dat[,-grep("security_incident", colnames(dat))]
+dat = dat[,-grep("victim.revenue.iso_currency_code", colnames(dat))]
+dat = dat[,-grep("victim.industry2", colnames(dat))]
+dat = dat[,-grep("victim.industry3", colnames(dat))]
+dat = dat[,-grep("pattern.", colnames(dat))]
 
 dat$victim.country = transform_row(dat, "victim.country.")
+dat = dat[,-grep("victim.country.", colnames(dat))]
 
-transform_row = function(dat, name)
-{
-  subframe = dat[,grep(name, colnames(dat))]
-  sub = apply(subframe, 1, function(x) return(substring(colnames(subframe)[which(x == TRUE)], nchar(name) + 1)))
-  return(sub)
-}
-
+dat = dat[dat$victim.country == "US",]
+dat = dat[,-grep("victim.country", colnames(dat))]
