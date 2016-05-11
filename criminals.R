@@ -45,6 +45,7 @@ dat = dat[,-grep("timeline.incident.month", colnames(dat))]
 dat = dat[,-grep("timeline.incident.time", colnames(dat))]
 dat = dat[,-grep("victim.locations_affected", colnames(dat))]
 dat = dat[,-grep("victim.secondary", colnames(dat))]
+dat = dat[,-grep("victim.region", colnames(dat))]
 
 dat$victim.country = transform_row(dat, "victim.country.")
 dat = dat[,-grep("victim.country.", colnames(dat))]
