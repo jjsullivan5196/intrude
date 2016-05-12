@@ -71,3 +71,5 @@ dat = dat[as.numeric(dat$timeline.incident.year) >= 2007,]
 dat$timeline.incident.month = factor(dat$timeline.incident.month)
 dat$timeline.incident.year = factor(dat$timeline.incident.year)
 dat$victim.employee_count = factor(dat$victim.employee_count)
+
+rownames(dat) = NULL
