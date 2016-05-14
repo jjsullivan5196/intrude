@@ -1,14 +1,14 @@
 transform_row = function(dat, name)
 {
   subframe = dat[,grep(name, colnames(dat))]
-  sub = apply(subframe, 1, function(x) return(substring(colnames(subframe)[which(x == TRUE)], nchar(name) + 1)))
+  sub = apply(subframe, 1, function(x) return(ifelse(is.numeric(which(x == TRUE)), substring(colnames(subframe)[which(x == TRUE)], nchar(name) + 1), NA)))
   return(sub)
 }
 
 transform_dot = function(dat, name)
 {
   subframe = dat[,grep(name, colnames(dat))]
-  sub = apply(subframe, 1, function(x) return(substring(colnames(subframe)[which(x == TRUE)], regexpr("\\.[^\\.]*$", colnames(subframe)[which(x == TRUE)]) + 1)))
+  sub = apply(subframe, 1, function(x) return(ifelse(is.numeric(which(x == TRUE)), substring(colnames(subframe)[which(x == TRUE)], regexpr("\\.[^\\.]*$", colnames(subframe)[which(x == TRUE)]) + 1), NA)))
   return(sub)
 }
 
@@ -71,5 +71,7 @@ dat = dat[as.numeric(dat$timeline.incident.year) >= 2007,]
 dat$timeline.incident.month = factor(dat$timeline.incident.month)
 dat$timeline.incident.year = factor(dat$timeline.incident.year)
 dat$victim.employee_count = factor(dat$victim.employee_count)
+
+dat = dat[!is.na(dat$victim.state),]
 
 rownames(dat) = NULL
