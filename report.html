@@ -119,6 +119,23 @@ $(document).ready(function () {
 <div id="r-markdown" class="section level2">
 <h2>R Markdown</h2>
 <p>The data set came in a huge CSV file (<a href="https://github.com/vz-risk/VCDB/blob/master/data/csv/vcdb.csv" class="uri">https://github.com/vz-risk/VCDB/blob/master/data/csv/vcdb.csv</a>) that was not very R-friendly, with thousands of hyper-specific columns that were nothing but True/False values. For example, instead of a single “Environmental” column that held values such as “Hurricane,” “Volcano” or “EMP” there was a separate column for each. These two functions collapsed these columns into one.</p>
+<pre class="r"><code>library(e1071)
+
+source(&quot;lin-regr-util.R&quot;)
+
+transform_row = function(dat, name)
+{
+  subframe = dat[,grep(name, colnames(dat))]
+  sub = apply(subframe, 1, function(x) return(ifelse( is.numeric(which(x == TRUE)), substring(colnames(subframe)[which(x == TRUE)], nchar(name) + 1), NA)))
+  return(sub)
+}
+
+transform_dot = function(dat, name)
+{
+  subframe = dat[,grep(name, colnames(dat))]
+  sub = apply(subframe, 1, function(x) return(substring(colnames(subframe)[which(x == TRUE)], regexpr(&quot;\\.[^\\.]*$&quot;, colnames(subframe)[which(x == TRUE)]) + 1)))
+  return(sub)
+}</code></pre>
 </div>
 <div id="data-readin-and-cleanup" class="section level2">
 <h2>Data readin and cleanup</h2>

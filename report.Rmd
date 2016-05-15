@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The data set came in a huge CSV file (https://github.com/vz-risk/VCDB/blob/master/data/csv/vcdb.csv) that was not very R-friendly, with thousands of hyper-specific columns that were nothing but True/False values. For example, instead of a single "Environmental" column that held values such as "Hurricane," "Volcano" or "EMP" there was a separate column for each. These two functions collapsed these columns into one.
 
-```{r functions, echo = FALSE}
+```{r functions}
 
 library(e1071)
 
