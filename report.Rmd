@@ -134,7 +134,7 @@ barplot(sort(table(dat$action)), las=2, main = "Incident category", horiz = TRUE
 
 barplot(sort(table(dat$victim))[12:18],las=2, main = "Victims of the incidents", horiz = TRUE, col = "firebrick")
 
-par(mar = c(4.1, 9.1, 2.1, 1))
+par(mar = c(4.1, 10.1, 2.1, 1))
 barplot(sort(table(dat$pattern)), las=2, main = "Types of attacks", horiz = TRUE, col = "firebrick")
 barplot(sort(table(dat$data_status)), las=2, main="Data status upon theft", horiz = TRUE, col = "firebrick")
 
